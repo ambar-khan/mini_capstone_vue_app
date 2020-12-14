@@ -3,6 +3,7 @@
     <h1>{{ message }}</h1>
     <div v-for="product in products">
       {{ product.name }}
+      <p><img v-bind:src="product.image_url"v-bind:alt="product.title"></p>
     </div>
   </div>
 </template>
