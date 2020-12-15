@@ -9,10 +9,29 @@
     <p>Price:<input type='text' v-model='price'></p>
     <button v-on:click="createProduct()">Add Product</button>
 
+    <br>
+
   <div v-for="product in products">
+      {{ product.id }}
       {{ product.title }}
       <p><img v-bind:src="product.image_url" v-bind:alt="product.title"></p>
+      <button v-on:click="showProduct(product)">Show more info</button>
+      <hr>
     </div>
+    
+    <dialog id="product-details">
+      <form method="dialog">
+        <h3>Hello</h3>
+        <p><strong>name:</strong> {{ currentProduct.name }}</p>
+        <p><strong>description:</strong> {{ currentProduct.description }}</p>
+        <p><strong>image_url:</strong> {{ currentProduct.image_url }}</p>
+        <p><strong>price:</strong> {{ currentProduct.price }}</p>
+        <p><strong>tax:</strong> {{ currentProduct.tax }}</p>
+        <p><strong>total:</strong> {{ currentProduct.total }}</p>
+        <button>Close</button>
+        
+      </form>
+    </dialog>  
   </div>
 </template>
 <style>
@@ -31,6 +50,7 @@ export default {
       price: "",
       tax: "",
       total: "",
+      currentProduct: {},
     };
   },
   created: function () {
@@ -57,6 +77,12 @@ export default {
         console.log(response.data);
         this.products.push(response.data);
       });
+    },
+    showProduct: function (theProduct) {
+      console.log(theProduct);
+      this.currentProduct = theProduct;
+      console.log("show product...");
+      document.querySelector("#product-details").showModal();
     },
   },
 };
